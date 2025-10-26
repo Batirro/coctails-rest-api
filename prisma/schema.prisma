@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Enum for cocktail categories
+enum CocktailCategory {
+  CLASSIC
+  TROPICAL
+  MOCKTAIL
+  SHOOTER
+  LONG_DRINK
+  SOUR
+  CREAMY
+  HOT_DRINK
+}
+
+// Cocktail model
+model Cocktail {
+  id           String               @id @default(uuid())
+  name         String
+  category     CocktailCategory
+  instructions String
+  imageUrl     String?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  ingredients  CocktailIngredient[]
+
+  @@map("cocktails")
+}
+
+// Ingredient model
+model Ingredient {
+  id          String               @id @default(uuid())
+  name        String
+  description String
+  isAlcoholic Boolean
+  imageUrl    String?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  cocktails   CocktailIngredient[]
+
+  @@map("ingredients")
+}
+
+// Junction table for many-to-many relationship with amount
+model CocktailIngredient {
+  cocktailId   String
+  ingredientId String
+  amount       String
+
+  cocktail   Cocktail   @relation(fields: [cocktailId], references: [id], onDelete: Cascade)
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Restrict)
+
+  @@id([cocktailId, ingredientId])
+  @@map("cocktail_ingredients")
+}
