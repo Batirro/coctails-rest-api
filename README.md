@@ -11,7 +11,7 @@ A comprehensive REST API for managing cocktails and ingredients built with NestJ
 - Sorting by multiple fields
 - Pagination (offset/limit)
 - Input validation with detailed error messages
-- Swagger/OpenAPI documentation
+- Swagger documentation
 - Clean code architecture following NestJS best practices
 - TypeScript with strict type checking
 
@@ -636,31 +636,3 @@ curl http://localhost:3000/api/cocktails?nonAlcoholic=true
 # Get cocktails with rum
 curl http://localhost:3000/api/cocktails?ingredientId=ingredient-id-1
 ```
-
----
-
-## CORS
-
-CORS is enabled by default. You can make requests from any origin.
-
----
-
-## License
-
-This project is licensed under the UNLICENSED license.
-
----
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-## Support
-
-For questions or issues, please open an issue in the repository.
-
----
-
-**Happy Coding!**
